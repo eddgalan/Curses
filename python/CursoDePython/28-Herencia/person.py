@@ -3,5 +3,8 @@ class Person:
         self.name = name
         self.age = age
 
+    def __str__(self):
+        return f'Name: {self.name}, Age: {self.age}'
+
     def greet(self):
         print(f'Hello! I am a person named {self.name}')
