@@ -1,5 +1,6 @@
 class Vehicle:
     def __init__(self, brand, model, price):
+        # Encapsulación
         self.brand = brand
         self.model = model
         self.price = price
@@ -11,10 +12,10 @@ class Vehicle:
             print(f'{self.brand} {self.model} vendido con exito')
         else:
             print(f'{self.brand} {self.model} NO está disponible')
-
+    # Abstracción
     def check_availability(self):
         return self.is_available
-
+    # Abstracción
     def get_price(self):
         return self.price
 

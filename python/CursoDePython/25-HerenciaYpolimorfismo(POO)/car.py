@@ -1,12 +1,14 @@
 from vehicle import Vehicle
-
+# Herencia
 class Car(Vehicle):
+    # Polimorfismo
     def start_engine(self):
         if not self.is_available:
             return f'El motor del coche {self.brand} está en marcha'
         else:
             return f'El coche {self.brand} NO está disponible'
 
+    # Polimorfismo
     def stop_engine(self):
         if self.is_available:
             return f'El motor del coche {self.brand} se ha detenido'
