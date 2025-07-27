@@ -1,0 +1,90 @@
+[
+    {
+        "name": "Relate Detail",
+        "price": 371.17,
+        "quantity": 67,
+        "brand": "Umbrella",
+        "category": "Books",
+        "entry_date": "2024-12-13"
+    },
+    {
+        "name": "Beyond Right",
+        "price": 52.17,
+        "quantity": 21,
+        "brand": "Soylent",
+        "category": "Books",
+        "entry_date": "2025-04-12"
+    },
+    {
+        "name": "Different Ability",
+        "price": 32.0,
+        "quantity": 25,
+        "brand": "Initech",
+        "category": "Clothing",
+        "entry_date": "2024-07-23"
+    },
+    {
+        "name": "Their Less",
+        "price": 414.64,
+        "quantity": 20,
+        "brand": "Initech",
+        "category": "Electronics",
+        "entry_date": "2024-12-07"
+    },
+    {
+        "name": "Space Police",
+        "price": 111.36,
+        "quantity": 47,
+        "brand": "Umbrella",
+        "category": "Home",
+        "entry_date": "2025-05-29"
+    },
+    {
+        "name": "Bank Hair",
+        "price": 384.67,
+        "quantity": 81,
+        "brand": "Initech",
+        "category": "Books",
+        "entry_date": "2024-10-07"
+    },
+    {
+        "name": "Seem South",
+        "price": 72.39,
+        "quantity": 73,
+        "brand": "Soylent",
+        "category": "Home",
+        "entry_date": "2024-12-14"
+    },
+    {
+        "name": "Moment Employee",
+        "price": 379.85,
+        "quantity": 60,
+        "brand": "Soylent",
+        "category": "Clothing",
+        "entry_date": "2025-04-17"
+    },
+    {
+        "name": "Will Such",
+        "price": 14.79,
+        "quantity": 44,
+        "brand": "Initech",
+        "category": "Electronics",
+        "entry_date": "2025-01-06"
+    },
+    {
+        "name": "Skin Relate",
+        "price": 203.29,
+        "quantity": 32,
+        "brand": "Initech",
+        "category": "Clothing",
+        "entry_date": "2025-01-06"
+    },
+    {
+        "name": "Producto de prueba",
+        "price": "100",
+        "quantity": "50",
+        "brand": "Marca de prueba",
+        "category": "Categoria de prueba",
+        "entry_date": "2025-07-27 17:36:35"
+    }
+]
