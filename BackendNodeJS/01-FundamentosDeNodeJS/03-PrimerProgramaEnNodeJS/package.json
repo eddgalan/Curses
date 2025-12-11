@@ -1,0 +1,12 @@
+{
+  "name": "03-primerprogramaennodejs",
+  "version": "1.0.0",
+  "description": "NodeJS Primer Programa",
+  "license": "MIT",
+  "author": "Edson Galan <edd.galan@hotmail.com>",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
