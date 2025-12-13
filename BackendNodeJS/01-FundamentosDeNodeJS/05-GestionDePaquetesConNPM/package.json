@@ -1,0 +1,19 @@
+{
+  "name": "05-gestiondepaquetesconnpm",
+  "version": "1.0.0",
+  "description": "A node js package",
+  "keywords": [
+    "nodejs"
+  ],
+  "license": "MIT",
+  "author": "Edson Galan <edd.galan@hotmail.com>",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "isnumber": "^1.0.0"
+  }
+}
