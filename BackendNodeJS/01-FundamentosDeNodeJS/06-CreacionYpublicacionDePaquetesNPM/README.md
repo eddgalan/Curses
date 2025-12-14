@@ -1,8 +1,5 @@
-# 06-CreacionYpublicacionDePaquetesNPM (Date)
-
-Una utilidad para manejar fechas en formato timestamp y long time.
-
-# Install
+Link del paquete:
 ```bash
-npm install platzidate
+npm link platzidate
 ```
+
