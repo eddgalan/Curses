@@ -45,7 +45,7 @@ async function transcription(audioFilePath, apikey) {
 }
 
 const audioPath = './audio.mp3';
-const apikey = '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';
+const apikey = '';
 
 transcription(audioPath, apikey)
     .then(transcription => {
