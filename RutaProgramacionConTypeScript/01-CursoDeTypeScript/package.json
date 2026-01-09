@@ -18,9 +18,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.21",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.1.0",
+    "lodash": "^4.17.21"
   }
 }
