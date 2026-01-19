@@ -1,4 +1,4 @@
-import type {BaseModel} from "../base.model";
+import type {BaseModel} from "../base.model.js";
 
 export enum ROLES {
     ADMIN = 'admin',
