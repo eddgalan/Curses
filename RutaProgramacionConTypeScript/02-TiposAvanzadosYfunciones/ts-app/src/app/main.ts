@@ -1,10 +1,15 @@
-import { addProduct } from 'products/product.service';
+import { addProduct } from './products/product.service';
 
 addProduct({
-    id: '1',
-    title: 'Producto 1',
+    id: 1,
+    title: 'Camisa',
     createdAt: new Date(),
-    stock: 10,
-    size: 'M'
+    updatedAt: new Date(),
+    stock: 100,
+    category: {
+        id: 1,
+        name: 'Main category',
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }
 });
-

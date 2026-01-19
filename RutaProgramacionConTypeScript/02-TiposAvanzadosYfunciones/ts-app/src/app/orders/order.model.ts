@@ -1,9 +1,8 @@
-import { Product } from './../products/product.model';
-import { User } from './../users/user.model';
+import { type Product } from './../products/product.model';
+import { type User } from './../users/user.model';
+import type {BaseModel} from "../base.model";
 
-export interface Order {
-    id: string | number
-    createdAt: Date
+export interface Order extends BaseModel{
     products: Product[]
     user: User
 }
