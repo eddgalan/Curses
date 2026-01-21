@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import {addProduct, products} from './products/product.service.js';
+import {addProduct, products, updateProduct} from './products/product.service.js';
 
 for (let i = 0; i < 10; i++) {
     addProduct({
@@ -17,3 +17,21 @@ for (let i = 0; i < 10; i++) {
 }
 
 console.log('Products: ', products);
+
+const product = products[0];
+console.log('Product: ', product);
+
+if (typeof product === 'undefined') throw new Error(
+    'No hay productos registrados'
+)
+
+const productUpdated = updateProduct(
+    product.id, {
+        title: 'Producto modificado',
+        stock: 99,
+        price: 199,
+        // createdAt: new Date()            // Prohibe que se modifique
+    }
+);
+
+console.log('Product updated: ', productUpdated);
