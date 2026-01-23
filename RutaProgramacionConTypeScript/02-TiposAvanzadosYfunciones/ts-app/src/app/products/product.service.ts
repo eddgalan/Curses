@@ -23,7 +23,8 @@ export const addProduct = (data: CreateProductDto): Product => {
     return newProduct;
 };
 
-export const updateProduct = (id: string, changes: UpdateProductDto): Product => {
+// id: Product['id'] -> No obtiene el dato sino el tipo
+export const updateProduct = (id: Product['id'], changes: UpdateProductDto): Product => {
     const index = products.findIndex(product => product.id === id);
     const prevData = products[index];
 
@@ -37,5 +38,8 @@ export const updateProduct = (id: string, changes: UpdateProductDto): Product =>
 
 export const searchProducts = (dto: SearchProductDto): Product[] => {
     // ToDo: Implementar filtro
+    // Readonly no permite hacer estos cambios
+    //dto.color = 'blue';
+    //dto.isNew = true;
     return products;
 };
