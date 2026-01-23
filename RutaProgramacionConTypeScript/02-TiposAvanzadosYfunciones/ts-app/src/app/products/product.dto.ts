@@ -14,3 +14,7 @@ export interface UpdateProductDto extends Partial<CreateProductDto> {
 
 // Hace lo opuesto que el Partial, es decir, obligar a mandar datos
 type example2 = Required<Product>;
+
+export interface SearchProductDto extends Readonly<Partial<Product>> {}
+
+type example3 = Readonly<Product>;
