@@ -41,5 +41,7 @@ export const searchProducts = (dto: SearchProductDto): Product[] => {
     // Readonly no permite hacer estos cambios
     //dto.color = 'blue';
     //dto.isNew = true;
+    //dto.tags?.push('rojo');
+    //dto.tags?.pop();
     return products;
 };

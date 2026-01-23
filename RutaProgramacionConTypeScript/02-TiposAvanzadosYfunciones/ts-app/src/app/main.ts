@@ -39,6 +39,7 @@ console.log('Product updated: ', productUpdated);
 const findProduct = searchProducts({
     stock: 10,
     color: 'red',
-    isNew: true
+    isNew: true,
+    tags: ['rojo', 'blusas']
 });
 console.log('Products found: ', findProduct);
