@@ -1,3 +1,4 @@
+/*
 const date = new Date();
 console.log('hours: ', date.getHours());
 console.log('time: ', date.getTime());
@@ -10,8 +11,8 @@ console.log('date: ', date2.toISOString());
 
 console.log('date 1: ', date);
 console.log('date 2: ', date2);
-
-class MyDate {
+*/
+export class MyDate {
   year: number;
   month: number;
   day: number;
@@ -21,7 +22,24 @@ class MyDate {
     this.month = month;
     this.day = day;
   }
-}
 
+  printFormat(): string {
+    return `${this.day}/${this.month}/${this.year}`;
+  }
+
+  add(amount: number, type: 'days' | 'months' | 'years') {
+    if (type === 'days') {
+      this.day += amount;
+    }
+    if (type === 'months') {
+      this.month += amount;
+    }
+    if (type === 'years') {
+      this.year += amount;
+    }
+  }
+}
+/*
 const myDate = new MyDate(2026, 1, 15);
 console.log('myDate: ', myDate);
+ */

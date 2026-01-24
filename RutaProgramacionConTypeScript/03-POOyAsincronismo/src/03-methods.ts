@@ -1,0 +1,7 @@
+import { MyDate } from "./02-class";
+
+const myDate = new MyDate(1999, 7, 9);
+console.log('printFormat(): ', myDate.printFormat());
+myDate.add(2, 'days');
+myDate.add(1, 'months');
+console.log('printFormat(): ', myDate.printFormat());
