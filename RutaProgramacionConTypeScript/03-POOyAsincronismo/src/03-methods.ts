@@ -13,3 +13,7 @@ console.log('printFormat(): ', myDate.printFormat());
 
 const myDate2 = new MyDate();
 console.log('MyDate2, printFormat(): ', myDate2.printFormat());
+
+console.log('myDate2, day: ', myDate2.day);
+console.log('myDate2, initDate: ', myDate2.initDate);
+console.log('myDate2, isLeapYear: ', myDate2.isLeapYear);

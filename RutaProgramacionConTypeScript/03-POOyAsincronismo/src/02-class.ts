@@ -18,22 +18,22 @@ export class MyDate {
   private month: number;
   private day: number;
   */
-  readonly initDate: string;      // No se puede modificar ni desde dentro de esta clase
+  readonly _initDate: string;      // No se puede modificar ni desde dentro de esta clase
 
   // El constructor crea las propiedades
   constructor(
-    private year: number = 1999,
-    private month: number = 1,
-    private day: number = 1
+    private _year: number = 1999,
+    private _month: number = 1,
+    private _day: number = 1
   ) {
-    this.initDate = this.printFormat();
+    this._initDate = this.printFormat();
   }
 
   printFormat(): string {
-    const day = this.addPadding(this.day);
-    const month = this.addPadding(this.month);
+    const day = this.addPadding(this._day);
+    const month = this.addPadding(this._month);
 
-    return `${day}/${month}/${this.year}`;
+    return `${day}/${month}/${this._year}`;
   }
 
   private addPadding(value: number) {
@@ -45,14 +45,26 @@ export class MyDate {
 
   add(amount: number, type: 'days' | 'months' | 'years') {
     if (type === 'days') {
-      this.day += amount;
+      this._day += amount;
     }
     if (type === 'months') {
-      this.month += amount;
+      this._month += amount;
     }
     if (type === 'years') {
-      this.year += amount;
+      this._year += amount;
     }
+  }
+
+  get day(): number {
+    return this._day;
+  }
+
+  get initDate(): string {
+    return this._initDate;
+  }
+
+  get isLeapYear(): boolean {
+    return (this._year % 4 === 0 && this._year % 100 !== 0) || this._year % 400 === 0;
   }
 }
 /*
