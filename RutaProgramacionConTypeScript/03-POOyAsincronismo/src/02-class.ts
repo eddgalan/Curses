@@ -13,15 +13,19 @@ console.log('date 1: ', date);
 console.log('date 2: ', date2);
 */
 export class MyDate {
+  /*
   private year: number;
   private month: number;
   private day: number;
+  */
   readonly initDate: string;      // No se puede modificar ni desde dentro de esta clase
 
-  constructor(year: number, month: number, day: number) {
-    this.year = year;
-    this.month = month;
-    this.day = day;
+  // El constructor crea las propiedades
+  constructor(
+    private year: number = 1999,
+    private month: number = 1,
+    private day: number = 1
+  ) {
     this.initDate = this.printFormat();
   }
 

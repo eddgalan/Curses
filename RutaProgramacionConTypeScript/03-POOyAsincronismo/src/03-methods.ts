@@ -11,3 +11,5 @@ console.log('printFormat(): ', myDate.printFormat());
 //console.log('month: ', myDate.month);
 //console.log('year: ', myDate.year);
 
+const myDate2 = new MyDate();
+console.log('MyDate2, printFormat(): ', myDate2.printFormat());
