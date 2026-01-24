@@ -13,9 +13,9 @@ console.log('date 1: ', date);
 console.log('date 2: ', date2);
 */
 export class MyDate {
-  year: number;
-  month: number;
-  day: number;
+  private year: number;
+  private month: number;
+  private day: number;
   readonly initDate: string;      // No se puede modificar ni desde dentro de esta clase
 
   constructor(year: number, month: number, day: number) {
@@ -26,7 +26,17 @@ export class MyDate {
   }
 
   printFormat(): string {
-    return `${this.day}/${this.month}/${this.year}`;
+    const day = this.addPadding(this.day);
+    const month = this.addPadding(this.month);
+
+    return `${day}/${month}/${this.year}`;
+  }
+
+  private addPadding(value: number) {
+    if (value < 10) {
+      return `0${value}`;
+    }
+    return `${value}`;
   }
 
   add(amount: number, type: 'days' | 'months' | 'years') {
