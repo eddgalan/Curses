@@ -66,6 +66,17 @@ export class MyDate {
   get isLeapYear(): boolean {
     return (this._year % 4 === 0 && this._year % 100 !== 0) || this._year % 400 === 0;
   }
+
+  get month(): number {
+    return this._month;
+  }
+
+  set month(newMonth: number) {
+    if (newMonth < 1 || newMonth > 12) {
+      throw new Error('Invalid month');
+    }
+    this._month = newMonth;
+  }
 }
 /*
 const myDate = new MyDate(2026, 1, 15);

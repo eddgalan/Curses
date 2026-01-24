@@ -17,3 +17,6 @@ console.log('MyDate2, printFormat(): ', myDate2.printFormat());
 console.log('myDate2, day: ', myDate2.day);
 console.log('myDate2, initDate: ', myDate2.initDate);
 console.log('myDate2, isLeapYear: ', myDate2.isLeapYear);
+
+myDate2.month = 12;
+console.log('myDate2, printFormat(): ', myDate2.printFormat());
