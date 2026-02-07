@@ -1,5 +1,5 @@
-export class Animal {
-  constructor(protected name: string) {}
+export abstract class Animal {
+  protected constructor(protected name: string) {}
 
   move() {
     console.log('moving...');
