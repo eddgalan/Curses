@@ -38,6 +38,10 @@ export class ProductMemoryService {
   get(id: Product['id']) {
     return this.products.find(product => product.id === id);
   }
+
+  getAll() {
+    return this.products;
+  }
 }
 
 export const products: Product[] = [];
