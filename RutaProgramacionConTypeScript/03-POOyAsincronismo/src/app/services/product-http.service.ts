@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import {ProductService} from "../models/product-service.model";
 import {CreateProductDto, UpdateProductDto} from "../dtos/product.dto";
 import {Product} from "../models/product.model";
@@ -26,7 +26,15 @@ export class ProductHttpService implements ProductService {
   }
 
   async update(id: Product['id'], data: UpdateProductDto) : Promise<Product>{
-    const { data: updatedProduct } = await axios.put<Product>(`${this.url}/${id}`, data);
-    return updatedProduct;
+    try {
+      const {data: updatedProduct} = await axios.put<Product>(`${this.url}/${id}`, data);
+      return updatedProduct;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error('Status:', error.response?.status);
+        console.error('Response data:', error.response?.data);
+      }
+      throw error;
+    }
   }
 }
