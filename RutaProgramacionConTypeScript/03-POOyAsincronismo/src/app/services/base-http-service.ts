@@ -1,12 +1,13 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {Category} from "../models/category.model";
 import {Product} from "../models/product.model";
+import {UpdateProductDto} from "../dtos/product.dto";
 
 export class BaseHttpService<TypeClass> {
   // data: TypeClass[] = [];
 
   constructor(
-    private url: string
+    protected url: string
   ) {
 
   }
@@ -14,6 +15,11 @@ export class BaseHttpService<TypeClass> {
   async getAll() {
     const { data } = await axios.get<TypeClass[]>(this.url);
     return data;
+  }
+
+  async update<ID, DTO>(id: ID, data: DTO){
+      const {data: updatedProduct} = await axios.put<Product>(`${this.url}/${id}`, data);
+      return updatedProduct;
   }
 }
 
@@ -28,6 +34,9 @@ export class BaseHttpService<TypeClass> {
   const productsService = new BaseHttpService<Product>(url1);
   const response = await productsService.getAll();
   console.log('products qty', response.length);
+  productsService.update<Product['id'], UpdateProductDto>(1, {
+    title: 'Producto editado',
+  })
 
   const url2 = 'https://api.escuelajs.co/api/v1/categories';
   const categoryService = new BaseHttpService<Category>(url2);
