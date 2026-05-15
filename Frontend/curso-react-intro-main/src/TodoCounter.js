@@ -1,6 +1,16 @@
+import './TodoCounter.css';
+
+/*
+const style = {
+  fontSize: '24px',
+  textAlign: 'center',
+  margin: '0',
+  padding: '48px',
+}
+ */
 
 function TodoCounter({ totalTodos, completedTodos }) {
-  return <h2>Has completado { completedTodos } de { totalTodos } TODOs</h2>;
+  return <h2 className="TodoCounter">Has completado <span>{ completedTodos }</span> de <span>{ totalTodos }</span> TODOs</h2>;
 }
 
 export { TodoCounter };
