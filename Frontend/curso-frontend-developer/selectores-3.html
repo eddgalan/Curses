@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Selectores 3</title>
+    <style>
+        p {
+            color: salmon;
+        }
+        p:hover {
+            color: skyblue;
+        }
+        p::first-letter {
+            color: red;
+            font-size: 2em;
+        }
+        p::before {
+            content: "⚠️";
+        }
+        p:hover::before {
+            content: "🚀";
+        }
+        div p:nth-child(2) {
+            color: violet;
+        }
+        ::placeholder {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<p>Hello World!</p>
+<div>
+    <p>Platzi</p>
+    <p>Master</p>
+    <p>Lo mejor</p>
+</div>
+<input type="text" placeholder="name">
+</body>
+</html>
