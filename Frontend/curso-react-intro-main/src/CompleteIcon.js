@@ -1,4 +1,5 @@
-import {BsCheckLg} from 'react-icons/bs'
+import {BsCheckLg} from 'react-icons/bs';
+import './CompleteIcon.css';
 
 function CompleteIcon({onComplete, completed}) {
   return (

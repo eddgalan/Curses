@@ -1,4 +1,5 @@
 import {BsTrashFill} from "react-icons/bs";
+import './DeleteIcon.css';
 
 function DeleteIcon({onDelete, text}) {
   return (
