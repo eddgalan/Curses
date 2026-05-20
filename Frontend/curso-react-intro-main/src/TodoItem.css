@@ -45,6 +45,7 @@
     position: absolute;
     top: -24px;
     right: 0;
+    color: darkred;
 }
 
 .Icon-delete:hover {

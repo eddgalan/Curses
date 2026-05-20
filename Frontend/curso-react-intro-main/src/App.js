@@ -29,6 +29,28 @@ function App() {
     }
   );
 
+  const getTodoIndexByText = (text) => {
+    return todos.findIndex(
+      (todo) => todo.text === text
+    );
+  }
+
+  const completeTodo = (text) => {
+    const index = getTodoIndexByText(text);
+    const newTodos = [...todos];
+
+    newTodos[index].completed = true;
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = (text) => {
+    const index = getTodoIndexByText(text);
+    const newTodos = [...todos];
+
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
+
   return (
     <React.Fragment>
       <TodoCounter
@@ -43,6 +65,14 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)}
+            /*
+            Se puede tambien proner la propiedad onComplete de la siguiente forma:
+             onComplete={completeTodo}
+             Y en el TodoItem poner el onClick asi:
+             onClick={props.onComplete.bind(null, props.text)}
+             */
+            onDelete={deleteTodo}
           />
         ))}
       </TodoList>
