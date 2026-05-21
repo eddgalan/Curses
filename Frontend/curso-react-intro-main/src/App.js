@@ -5,11 +5,21 @@ import {TodoList} from './TodoList';
 import {TodoItem} from "./TodoItem";
 import {CreateTodoButton} from './CreateTodoButton';
 
+function useLocalStorage(itemName, initialValue) {
+  let parsedItem = JSON.parse(localStorage.getItem(itemName)) || initialValue;
+
+  const [item, setItem] = React.useState(parsedItem);
+
+  const saveItem = (newItem) => {
+    localStorage.setItem(itemName, JSON.stringify(newItem));
+    setItem(newItem);
+  }
+
+  return [item, saveItem];
+}
 
 function App() {
-  let parsedTodos = JSON.parse(localStorage.getItem('TODOS_V1')) || [];
-
-  const [todos, setTodos] = React.useState(parsedTodos)
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => todo.completed).length;
@@ -22,11 +32,6 @@ function App() {
       return todoText.includes(searchText);
     }
   );
-
-  const saveTodos = (newTodos) => {
-    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
-    setTodos(newTodos);
-  }
 
   const getTodoIndexByText = (text) => {
     return todos.findIndex(
