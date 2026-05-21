@@ -5,17 +5,11 @@ import {TodoList} from './TodoList';
 import {TodoItem} from "./TodoItem";
 import {CreateTodoButton} from './CreateTodoButton';
 
-const defaultTodos = [
-  {text: 'Estudiar React', completed: true},
-  {text: 'Llorar con mis amigos', completed: false},
-  {text: 'Hacer ejercicio', completed: false},
-  {text: 'Dormir', completed: false},
-  {text: 'Comer', completed: true},
-  {text: 'Aprender ReactJs', completed: true},
-];
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos)
+  let parsedTodos = JSON.parse(localStorage.getItem('TODOS_V1')) || [];
+
+  const [todos, setTodos] = React.useState(parsedTodos)
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => todo.completed).length;
@@ -29,6 +23,11 @@ function App() {
     }
   );
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
+    setTodos(newTodos);
+  }
+
   const getTodoIndexByText = (text) => {
     return todos.findIndex(
       (todo) => todo.text === text
@@ -40,7 +39,7 @@ function App() {
     const newTodos = [...todos];
 
     newTodos[index].completed = true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   const deleteTodo = (text) => {
@@ -48,7 +47,7 @@ function App() {
     const newTodos = [...todos];
 
     newTodos.splice(index, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   return (
