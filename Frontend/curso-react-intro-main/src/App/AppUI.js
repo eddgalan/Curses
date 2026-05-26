@@ -9,6 +9,7 @@ import {TodosError} from "../TodosError";
 import {TodosEmpty} from "../TodosEmpty";
 import {TodoContext} from "../TodoContext";
 import {Modal} from "../Modal";
+import {TodoForm} from "../TodoForm";
 
 function AppUI() {
   const {
@@ -52,7 +53,7 @@ function AppUI() {
 
       {openModal && (
         <Modal>
-          Agregar Todos
+          <TodoForm />
         </Modal>
       )}
     </React.Fragment>
