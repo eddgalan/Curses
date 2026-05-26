@@ -3,7 +3,7 @@ import './style.css';
 
 function TodosEmpty() {
   return (
-    <p className="TodosEmpty">Empty</p>
+    <p className="TodosEmpty">No existen todos...</p>
   );
 }
 
