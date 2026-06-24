@@ -4,6 +4,14 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 @import "tailwindcss";
+
+@theme {
+	--color-primary-light: #6028D9;
+	--color-primary-dark: #2E1065;
+	--font-heading: "Ubuntu", sans-serif;
+	--font-body: "Inter", sans-serif;
+}
+
 :root {
 	--accent: #2337ff;
 	--accent-dark: #000d8a;
