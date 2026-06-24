@@ -5,6 +5,7 @@
  */
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
 
 @theme {
 	--color-primary-light: #6028D9;
