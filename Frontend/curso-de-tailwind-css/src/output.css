@@ -9,10 +9,12 @@
       "Courier New", monospace;
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-600: oklch(57.7% 0.245 27.325);
+    --color-amber-500: oklch(76.9% 0.188 70.08);
     --color-yellow-400: oklch(85.2% 0.199 91.936);
     --color-yellow-500: oklch(79.5% 0.184 86.047);
     --color-green-200: oklch(92.5% 0.084 155.995);
     --color-green-500: oklch(72.3% 0.219 149.579);
+    --color-sky-500: oklch(68.5% 0.169 237.323);
     --color-blue-200: oklch(88.2% 0.059 254.128);
     --color-blue-400: oklch(70.7% 0.165 254.624);
     --color-blue-500: oklch(62.3% 0.214 259.815);
@@ -22,6 +24,7 @@
     --color-indigo-500: oklch(58.5% 0.233 277.117);
     --color-purple-300: oklch(82.7% 0.119 306.383);
     --color-purple-500: oklch(62.7% 0.265 303.9);
+    --color-fuchsia-300: oklch(83.3% 0.145 321.434);
     --color-pink-300: oklch(82.3% 0.12 346.018);
     --color-pink-400: oklch(71.8% 0.202 349.761);
     --color-pink-500: oklch(65.6% 0.241 354.308);
@@ -292,6 +295,12 @@
   .z-50 {
     z-index: 50;
   }
+  .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+  .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -458,6 +467,12 @@
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .flex-col {
     flex-direction: column;
   }
@@ -553,6 +568,9 @@
   .border-b-blue-200 {
     border-bottom-color: var(--color-blue-200);
   }
+  .bg-amber-500 {
+    background-color: var(--color-amber-500);
+  }
   .bg-blue-200 {
     background-color: var(--color-blue-200);
   }
@@ -564,6 +582,9 @@
   }
   .bg-dark {
     background-color: var(--color-dark);
+  }
+  .bg-fuchsia-300 {
+    background-color: var(--color-fuchsia-300);
   }
   .bg-gray-100 {
     background-color: var(--color-gray-100);
@@ -586,6 +607,9 @@
   .bg-green-200 {
     background-color: var(--color-green-200);
   }
+  .bg-green-500 {
+    background-color: var(--color-green-500);
+  }
   .bg-indigo-500 {
     background-color: var(--color-indigo-500);
   }
@@ -595,6 +619,15 @@
   .bg-pink-400 {
     background-color: var(--color-pink-400);
   }
+  .bg-pink-500 {
+    background-color: var(--color-pink-500);
+  }
+  .bg-red-500 {
+    background-color: var(--color-red-500);
+  }
+  .bg-sky-500 {
+    background-color: var(--color-sky-500);
+  }
   .bg-slate-300 {
     background-color: var(--color-slate-300);
   }
@@ -603,6 +636,9 @@
   }
   .bg-yellow-400 {
     background-color: var(--color-yellow-400);
+  }
+  .bg-yellow-500 {
+    background-color: var(--color-yellow-500);
   }
   .bg-linear-to-r {
     --tw-gradient-position: to right;
