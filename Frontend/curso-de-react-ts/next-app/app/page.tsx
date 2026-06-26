@@ -1,12 +1,11 @@
-import { RandomFox } from "@/components/RandomFox";
+import {JSX } from "react";
+import { FoxGallery } from "@/components/FoxGalery";
 
-export default function Home() {
-    const random = (): number => Math.floor(Math.random() * 123) + 1;
-
+export default function Home(): JSX.Element {
     return (
-        <>
-            <h1>Hello World</h1>
-            <RandomFox imageUrl={`https://randomfox.ca/images/${random()}.jpg`}/>
-        </>
+        <main>
+            <h1 className="text-3xl font-bold underline">Hello World!</h1>
+            <FoxGallery />
+        </main>
     );
 }
