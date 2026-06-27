@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import type { ImgHTMLAttributes } from "react";
 
-type Props = { imageUrl: string };
+type LazyImageProps = { src: string };
+type ImageNative = ImgHTMLAttributes<HTMLImageElement>
+type Props = LazyImageProps & ImageNative;
 
-export const RandomFox = ({ imageUrl }: Props ): React.JSX.Element => {
+export const LazyImage = ({ src, ...imgProps }: Props ): React.JSX.Element => {
     const node = useRef<HTMLImageElement>(null);
-    const [src, setSrc] = useState<string>("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+    const [imageSrc, setImageSrc] = useState<string>("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
 
     useEffect(() => {
         if (!node.current) return;
@@ -13,7 +16,7 @@ export const RandomFox = ({ imageUrl }: Props ): React.JSX.Element => {
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setSrc(imageUrl);
+                    setImageSrc(src);
                 }
             });
         });
@@ -25,14 +28,12 @@ export const RandomFox = ({ imageUrl }: Props ): React.JSX.Element => {
         return () => {
             observer.disconnect();
         }
-    }, [imageUrl]);
+    }, [imageSrc]);
 
     return (
         <img src={ src }
-             alt="Fox image"
-             width={320}
-             className="h-auto rounded-lg bg-gray-300"
-             ref={node}
+             ref={ node }
+             { ...imgProps }
         />
     );
 };

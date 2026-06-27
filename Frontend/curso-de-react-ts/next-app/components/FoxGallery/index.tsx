@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { MouseEventHandler } from "react";
-import { RandomFox } from "@/components/FoxGallery/RandomFox";
+import { LazyImage } from "@/components/FoxGallery/LazyImage";
 
 type ImageItem = { id: string, url: string }
 
@@ -37,7 +37,12 @@ export function FoxGallery() {
                 Add new fox</button>
             {images.map(({ id, url }) => (
                 <div key={ id } className="p-4">
-                    <RandomFox imageUrl={ url } />
+                    <LazyImage
+                        src={ url }
+                        alt="Fox"
+                        width="350"
+                        className="h-auto rounded-lg bg-gray-300"
+                        onClick={() => console.log('Clicked!')}/>
                 </div>
             ))}
         </>
