@@ -11,9 +11,12 @@ export const LazyImage = ({
         ...imgProps
     }: Props ): React.JSX.Element => {
     const node = useRef<HTMLImageElement>(null);
+    const [isLazyLoaded, setIsLazyLoaded] = useState<boolean>(false);
     const [imageSrc, setImageSrc] = useState<string>("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
 
     useEffect(() => {
+        if (isLazyLoaded) return;
+
         const img = node.current;
 
         if (!img) return;
@@ -23,12 +26,12 @@ export const LazyImage = ({
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     setImageSrc(src);
+                    observer.disconnect();
+                    setIsLazyLoaded(true);
 
                     if (typeof onLazyLoad === "function") {
                         onLazyLoad(img);
                     }
-
-                    // observer.disconnect(); // Stop observing once the image is loaded
                 }
             });
         });
@@ -40,7 +43,7 @@ export const LazyImage = ({
         return () => {
             observer.disconnect();
         }
-    }, [src, onLazyLoad]);
+    }, [src, onLazyLoad, isLazyLoaded]);
 
     return (
         <img src={ imageSrc }
