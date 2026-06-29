@@ -3,11 +3,12 @@
 import { useState } from "react";
 import type { MouseEventHandler } from "react";
 import { LazyImage } from "@/components/FoxGallery/LazyImage";
+import { random } from "lodash";
 
 export function FoxGallery() {
     const [images, setImages] = useState<Array<IFoxImageItem>>([]);
 
-    const random = () => Math.floor(Math.random() * 123) + 1;
+    const random_ = () => random(1, 123);
     const generateId = () => Math.random().toString(36).substring(2, 9);
 
     /**
@@ -18,7 +19,7 @@ export function FoxGallery() {
     const addNewFox: MouseEventHandler<HTMLButtonElement> = (): void => {
         const newImage: IFoxImageItem = {
             id: generateId(),
-            url: `https://randomfox.ca/images/${ random() }.jpg`
+            url: `https://randomfox.ca/images/${ random_() }.jpg`
         };
         setImages(prev => [...prev, newImage]);
     };
