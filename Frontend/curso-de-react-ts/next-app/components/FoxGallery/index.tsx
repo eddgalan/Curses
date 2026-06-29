@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { MouseEventHandler } from "react";
 import { LazyImage } from "@/components/FoxGallery/LazyImage";
 
@@ -12,16 +12,12 @@ export function FoxGallery() {
     const random = () => Math.floor(Math.random() * 123) + 1;
     const generateId = () => Math.random().toString(36).substring(2, 9);
 
-    useEffect(() => {
-        setImages([]);
-    }, []);
-
     /**
      * Adds a new random fox image to the gallery.
      *
      * RandomFox provides images from 1 to 123, so the generated URL must stay within that range.
      */
-    const addNewFox: MouseEventHandler<HTMLButtonElement> = (event): void => {
+    const addNewFox: MouseEventHandler<HTMLButtonElement> = (): void => {
         const newImage: ImageItem = {
             id: generateId(),
             url: `https://randomfox.ca/images/${ random() }.jpg`
@@ -35,14 +31,18 @@ export function FoxGallery() {
                     onClick={ addNewFox }
             >
                 Add new fox</button>
-            {images.map(({ id, url }) => (
+            {images.map(({ id, url }, index) => (
                 <div key={ id } className="p-4">
                     <LazyImage
                         src={ url }
                         alt="Fox"
                         width="350"
                         className="h-auto rounded-lg bg-gray-300"
-                        onClick={() => console.log('Clicked!')}/>
+                        onClick={() => console.log('Clicked!')}
+                        onLazyLoad={(img) => {
+                            console.log(`Image #${index + 1} cargada. Nodo:`, img);
+                        }}
+                    />
                 </div>
             ))}
         </>
