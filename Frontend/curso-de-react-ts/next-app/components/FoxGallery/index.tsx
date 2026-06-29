@@ -22,6 +22,7 @@ export function FoxGallery() {
             url: `https://randomfox.ca/images/${ random_() }.jpg`
         };
         setImages(prev => [...prev, newImage]);
+        // window.plausible('Add new fox');
     };
 
     return (
