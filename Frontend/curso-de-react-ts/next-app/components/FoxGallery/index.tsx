@@ -4,10 +4,8 @@ import { useState } from "react";
 import type { MouseEventHandler } from "react";
 import { LazyImage } from "@/components/FoxGallery/LazyImage";
 
-type ImageItem = { id: string, url: string }
-
 export function FoxGallery() {
-    const [images, setImages] = useState<Array<ImageItem>>([]);
+    const [images, setImages] = useState<Array<IFoxImageItem>>([]);
 
     const random = () => Math.floor(Math.random() * 123) + 1;
     const generateId = () => Math.random().toString(36).substring(2, 9);
@@ -18,7 +16,7 @@ export function FoxGallery() {
      * RandomFox provides images from 1 to 123, so the generated URL must stay within that range.
      */
     const addNewFox: MouseEventHandler<HTMLButtonElement> = (): void => {
-        const newImage: ImageItem = {
+        const newImage: IFoxImageItem = {
             id: generateId(),
             url: `https://randomfox.ca/images/${ random() }.jpg`
         };
