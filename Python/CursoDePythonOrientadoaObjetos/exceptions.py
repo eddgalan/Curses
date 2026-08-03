@@ -9,3 +9,6 @@ class BookNotAvailableError(LibraryError):
 
 class UserNotFoundError(LibraryError):
     pass
+
+class BookNotFoundError(LibraryError):
+    pass

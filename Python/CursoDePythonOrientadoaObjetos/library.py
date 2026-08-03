@@ -1,4 +1,4 @@
-from exceptions import UserNotFoundError
+from exceptions import UserNotFoundError, BookNotFoundError
 
 
 class Library:
@@ -39,3 +39,9 @@ class Library:
             if user.id == user_id:
                 return user
         raise UserNotFoundError(f"El usuario con el Id: {str(user_id)} no se encuentra en la biblioteca")
+
+    def search_book(self, title):
+        for book in self._books:
+            if book.title == title and book.available:
+                return book
+        raise BookNotFoundError(f"El libro {title} no existe o no esta disponible en la biblioteca")

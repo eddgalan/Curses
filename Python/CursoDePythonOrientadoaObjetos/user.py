@@ -40,7 +40,7 @@ class Student(User):
 
         if len(self._books_borrowed) < self._books_limit:
             self._books_borrowed.append(title)
-            return f"El usuario {self._name} ha alquilado el libro {title}"
+            return f"El usuario '{self._name}' ha alquilado el libro '{title}'"
         else:
             return f"No puedes alquilar mas libros, limite alcanzado. Limite: {self._books_limit}"
 

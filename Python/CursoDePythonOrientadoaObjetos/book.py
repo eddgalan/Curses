@@ -28,7 +28,7 @@ class Book:
         self._title = title
         self._author = author
         self._isbn = isbn
-        self._available = available
+        self._available = bool(available)
 
     def __str__(self):
         return f"Book: {self._title} - {self._author} - {self._isbn} - Available: {self._available}"
@@ -55,7 +55,7 @@ class Book:
     def borrow_book(self):
         if self._available:
             self._available = False
-            print(f"Libro {self._title} prestado")
+            return f"Libro {self._title} prestado"
         else:
             raise BookNotAvailableError(f"Libro {self._title} no disponible")
 
