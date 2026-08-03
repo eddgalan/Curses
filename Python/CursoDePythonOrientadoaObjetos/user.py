@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from typing import Protocol
 from exceptions import TitleInvalidError
 
@@ -8,7 +9,12 @@ class RequesterProtocol(Protocol):
         """
         ...
 
-class User:
+class UserBase(ABC):
+    @abstractmethod
+    def borrow_book(self, title: str) -> str:
+        pass
+
+class User(UserBase):
     def __init__(self, name, user_id):
         self._name = name
         self._id = user_id
