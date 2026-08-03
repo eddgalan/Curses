@@ -1,4 +1,6 @@
 from typing import Protocol
+from exceptions import BookNotAvailableError
+
 
 class BookProtocol(Protocol):
     def borrow_book(self) -> str:
@@ -51,7 +53,7 @@ class Book:
             self._available = False
             print(f"Libro {self._title} prestado")
         else:
-            print(f"Libro {self._title} no disponible")
+            raise BookNotAvailableError(f"Libro {self._title} no disponible")
 
     def change_availability(self):
         self._available = not self._available

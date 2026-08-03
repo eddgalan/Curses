@@ -1,4 +1,5 @@
 from typing import Protocol
+from exceptions import TitleInvalidError
 
 class RequesterProtocol(Protocol):
     def borrow_book(self, title: str) -> str:
@@ -24,6 +25,9 @@ class Student(User):
         self.books_limit = 3
 
     def borrow_book(self, title):
+        if not title:
+            raise TitleInvalidError("Title should not be empty")
+
         if len(self.books_borrowed) < self.books_limit:
             self.books_borrowed.append(title)
             return f"El usuario {self.name} ha alquilado el libro {title}"
