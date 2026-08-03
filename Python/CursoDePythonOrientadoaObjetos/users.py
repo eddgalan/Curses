@@ -1,3 +1,12 @@
+from typing import Protocol
+
+class RequesterProtocol(Protocol):
+    def borrow_book(self, title: str) -> str:
+        """
+        Allows the user to borrow a book from the library by its title.
+        """
+        ...
+
 class User:
     def __init__(self, name, user_id):
         self.name = name
@@ -32,15 +41,14 @@ class Teacher(User):
         return f"El usuario {self.name} ha alquilado el libro {title}"
 
 
-student = Student("Juan", 123, "Python")
-teacer = Teacher("Pedro", 456)
+student_1 = Student("Juan", 123, "Python")
+student_2 = Student("Maria", 456, "Java")
+teacher = Teacher("Pedro", 456)
 
-print(student.borrow_book("Python para iniciantes"))
-print(student.borrow_book("Python para iniciantes"))
-print(student.borrow_book("Python para iniciantes"))
-print(student.borrow_book("Python para iniciantes"))
+from main import Book
+book = Book("Python para iniciantes", "Pedro", "0123456789", True)
 
-print(teacer.borrow_book("Python para expertos"))
-print(teacer.borrow_book("Python para expertos"))
-print(teacer.borrow_book("Python para expertos"))
-print(teacer.borrow_book("Python para expertos"))
+users: list[RequesterProtocol] = [student_1, student_2, teacher, book]
+
+for user in users:
+    print(user.borrow_book("Python para iniciantes"))
