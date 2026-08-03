@@ -1,8 +1,15 @@
+from book import Book
 from data.books_creator import BooksCreator
 from exceptions import UserNotFoundError, BookNotFoundError
 from library import Library
 from user import Student, Teacher, RequesterProtocol
 
+
+result = Library.validate_isbn("1234567890")
+print(f"Isbn valid: {result}")
+
+not_available_book = Book.create_not_available("Prueba", "Autor de prueba", "1234567899")
+print(not_available_book)
 
 book_importer = BooksCreator("data/books_catalog.csv")
 books = book_importer.create()

@@ -24,11 +24,15 @@ class DigitalBook(BookProtocol):
 
 
 class Book:
-    def __init__(self, title, author, isbn, available: bool):
+    def __init__(self, title, author, isbn, available: bool=True):
         self._title = title
         self._author = author
         self._isbn = isbn
         self._available = bool(available)
+
+    @classmethod
+    def create_not_available(cls, title, author, isbn):
+        return cls(title, author, isbn, False)
 
     def __str__(self):
         return f"Book: {self._title} - {self._author} - {self._isbn} - Available: {self._available}"
