@@ -10,29 +10,39 @@ class RequesterProtocol(Protocol):
 
 class User:
     def __init__(self, name, user_id):
-        self.name = name
-        self.user_id = user_id
-        self.books_borrowed = []
+        self._name = name
+        self._id = user_id
+        self._books_borrowed = []
+
+    def __str__(self):
+        return f"User: {self._name} - ID: {self._id}"
+
+    def __repr__(self):
+        return self.__str__()
+
+    @property
+    def id(self):
+        return self._id
 
     def borrow_book(self, book):
-        return f"El usuario {self.name} ha alquilado el libro {book.title}"
+        return f"El usuario {self._name} ha alquilado el libro {book.title}"
 
 
 class Student(User):
     def __init__(self, name, user_id, course):
         super().__init__(name, user_id)
-        self.course = course
-        self.books_limit = 3
+        self._course = course
+        self._books_limit = 3
 
     def borrow_book(self, title):
         if not title:
             raise TitleInvalidError("Title should not be empty")
 
-        if len(self.books_borrowed) < self.books_limit:
-            self.books_borrowed.append(title)
-            return f"El usuario {self.name} ha alquilado el libro {title}"
+        if len(self._books_borrowed) < self._books_limit:
+            self._books_borrowed.append(title)
+            return f"El usuario {self._name} ha alquilado el libro {title}"
         else:
-            return f"No puedes alquilar mas libros, limite alcanzado. Limite: {self.books_limit}"
+            return f"No puedes alquilar mas libros, limite alcanzado. Limite: {self._books_limit}"
 
 
 class Teacher(User):
@@ -41,6 +51,6 @@ class Teacher(User):
         self.books_limit = None
 
     def borrow_book(self, title):
-        self.books_borrowed.append(title)
-        return f"El usuario {self.name} ha alquilado el libro {title}"
+        self._books_borrowed.append(title)
+        return f"El usuario {self._name} ha alquilado el libro {title}"
 

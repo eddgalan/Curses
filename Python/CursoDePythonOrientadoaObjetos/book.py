@@ -41,6 +41,10 @@ class Book:
         return self._title
 
     @property
+    def author(self):
+        return self._author
+
+    @property
     def available(self):
         return self._available
 

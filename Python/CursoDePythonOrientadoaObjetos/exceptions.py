@@ -6,3 +6,6 @@ class TitleInvalidError(LibraryError):
 
 class BookNotAvailableError(LibraryError):
     pass
+
+class UserNotFoundError(LibraryError):
+    pass
