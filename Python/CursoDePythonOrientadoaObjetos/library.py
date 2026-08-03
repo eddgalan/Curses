@@ -12,6 +12,10 @@ class Library:
         self._users = users
 
     @property
+    def name(self):
+        return self._name
+
+    @property
     def books(self):
         return self._books
 

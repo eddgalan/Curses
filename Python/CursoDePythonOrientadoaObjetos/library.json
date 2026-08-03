@@ -1,0 +1,106 @@
+{
+    "name": "Mi biblioteca",
+    "users": [
+        {
+            "_name": "Juan",
+            "_id": 123,
+            "_books_borrowed": [],
+            "_course": "Python",
+            "_books_limit": 3
+        },
+        {
+            "_name": "Maria",
+            "_id": 456,
+            "_books_borrowed": [],
+            "_course": "Java",
+            "_books_limit": 3
+        },
+        {
+            "_name": "Pedro",
+            "_id": 789,
+            "_books_borrowed": [],
+            "books_limit": null
+        }
+    ],
+    "books": [
+        {
+            "_title": "100 anios de soledad",
+            "_author": "Gabriel Garcia Marquez",
+            "_isbn": "1234567890",
+            "_available": true
+        },
+        {
+            "_title": "El principito",
+            "_author": "Saint-Exupery",
+            "_isbn": "1234567891",
+            "_available": true
+        },
+        {
+            "_title": "El quijote de la mancha",
+            "_author": "Miguel de Cervantes Saavedra",
+            "_isbn": "1234567892",
+            "_available": true
+        },
+        {
+            "_title": "Don Quijote de la Mancha",
+            "_author": "Miguel de Cervantes",
+            "_isbn": "1234567900",
+            "_available": true
+        },
+        {
+            "_title": "La Odisea",
+            "_author": "Homero",
+            "_isbn": "1234567901",
+            "_available": true
+        },
+        {
+            "_title": "Crimen y castigo",
+            "_author": "Fiódor Dostoievski",
+            "_isbn": "1234567902",
+            "_available": true
+        },
+        {
+            "_title": "1984",
+            "_author": "George Orwell",
+            "_isbn": "1234567903",
+            "_available": true
+        },
+        {
+            "_title": "Rebelión en la granja",
+            "_author": "George Orwell",
+            "_isbn": "1234567904",
+            "_available": true
+        },
+        {
+            "_title": "Cien años de soledad",
+            "_author": "Gabriel García Márquez",
+            "_isbn": "1234567905",
+            "_available": true
+        },
+        {
+            "_title": "El retrato de Dorian Gray",
+            "_author": "Oscar Wilde",
+            "_isbn": "1234567906",
+            "_available": true
+        },
+        {
+            "_title": "Los miserables",
+            "_author": "Victor Hugo",
+            "_isbn": "1234567907",
+            "_available": true
+        },
+        {
+            "_title": "Drácula",
+            "_author": "Bram Stoker",
+            "_isbn": "1234567908",
+            "_available": true
+        },
+        {
+            "_title": "El Conde de Montecristo",
+            "_author": "Alexandre Dumas",
+            "_isbn": "1234567909",
+            "_available": true
+        }
+    ],
+    "date": "2026-08-03T13:36:30.828752"
+}
