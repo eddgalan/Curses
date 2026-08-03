@@ -33,6 +33,13 @@ class User(UserBase):
     def borrow_book(self, book):
         return f"El usuario {self._name} ha alquilado el libro {book.title}"
 
+    def to_dict(self):
+        return {
+            "user_id": self._id,
+            "name": self._name,
+            "books_borrowed": self._books_borrowed,
+        }
+
 
 class Student(User):
     def __init__(self, name, user_id, course):
@@ -50,6 +57,12 @@ class Student(User):
         else:
             return f"No puedes alquilar mas libros, limite alcanzado. Limite: {self._books_limit}"
 
+    def to_dict(self):
+        student_dict = super().to_dict()
+        student_dict.pop("books_borrowed", None)
+        student_dict["course"] = self._course
+        return student_dict
+
 
 class Teacher(User):
     def __init__(self, name, user_id):
@@ -59,4 +72,9 @@ class Teacher(User):
     def borrow_book(self, title):
         self._books_borrowed.append(title)
         return f"El usuario {self._name} ha alquilado el libro {title}"
+
+    def to_dict(self):
+        teacher_dict = super().to_dict()
+        teacher_dict.pop("books_borrowed", None)
+        return teacher_dict
 

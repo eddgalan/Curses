@@ -2,105 +2,99 @@
     "name": "Mi biblioteca",
     "users": [
         {
-            "_name": "Juan",
-            "_id": 123,
-            "_books_borrowed": [],
-            "_course": "Python",
-            "_books_limit": 3
+            "user_id": 123,
+            "name": "Juan",
+            "course": "Python"
         },
         {
-            "_name": "Maria",
-            "_id": 456,
-            "_books_borrowed": [],
-            "_course": "Java",
-            "_books_limit": 3
+            "user_id": 456,
+            "name": "Maria",
+            "course": "Java"
         },
         {
-            "_name": "Pedro",
-            "_id": 789,
-            "_books_borrowed": [],
-            "books_limit": null
+            "user_id": 789,
+            "name": "Pedro"
         }
     ],
     "books": [
         {
-            "_title": "100 anios de soledad",
-            "_author": "Gabriel Garcia Marquez",
-            "_isbn": "1234567890",
-            "_available": true
+            "title": "100 anios de soledad",
+            "author": "Gabriel Garcia Marquez",
+            "isbn": "1234567890",
+            "available": true
         },
         {
-            "_title": "El principito",
-            "_author": "Saint-Exupery",
-            "_isbn": "1234567891",
-            "_available": true
+            "title": "El principito",
+            "author": "Saint-Exupery",
+            "isbn": "1234567891",
+            "available": true
         },
         {
-            "_title": "El quijote de la mancha",
-            "_author": "Miguel de Cervantes Saavedra",
-            "_isbn": "1234567892",
-            "_available": true
+            "title": "El quijote de la mancha",
+            "author": "Miguel de Cervantes Saavedra",
+            "isbn": "1234567892",
+            "available": true
         },
         {
-            "_title": "Don Quijote de la Mancha",
-            "_author": "Miguel de Cervantes",
-            "_isbn": "1234567900",
-            "_available": true
+            "title": "Don Quijote de la Mancha",
+            "author": "Miguel de Cervantes",
+            "isbn": "1234567900",
+            "available": true
         },
         {
-            "_title": "La Odisea",
-            "_author": "Homero",
-            "_isbn": "1234567901",
-            "_available": true
+            "title": "La Odisea",
+            "author": "Homero",
+            "isbn": "1234567901",
+            "available": true
         },
         {
-            "_title": "Crimen y castigo",
-            "_author": "Fiódor Dostoievski",
-            "_isbn": "1234567902",
-            "_available": true
+            "title": "Crimen y castigo",
+            "author": "Fiódor Dostoievski",
+            "isbn": "1234567902",
+            "available": true
         },
         {
-            "_title": "1984",
-            "_author": "George Orwell",
-            "_isbn": "1234567903",
-            "_available": true
+            "title": "1984",
+            "author": "George Orwell",
+            "isbn": "1234567903",
+            "available": true
         },
         {
-            "_title": "Rebelión en la granja",
-            "_author": "George Orwell",
-            "_isbn": "1234567904",
-            "_available": true
+            "title": "Rebelión en la granja",
+            "author": "George Orwell",
+            "isbn": "1234567904",
+            "available": true
         },
         {
-            "_title": "Cien años de soledad",
-            "_author": "Gabriel García Márquez",
-            "_isbn": "1234567905",
-            "_available": true
+            "title": "Cien años de soledad",
+            "author": "Gabriel García Márquez",
+            "isbn": "1234567905",
+            "available": true
         },
         {
-            "_title": "El retrato de Dorian Gray",
-            "_author": "Oscar Wilde",
-            "_isbn": "1234567906",
-            "_available": true
+            "title": "El retrato de Dorian Gray",
+            "author": "Oscar Wilde",
+            "isbn": "1234567906",
+            "available": true
         },
         {
-            "_title": "Los miserables",
-            "_author": "Victor Hugo",
-            "_isbn": "1234567907",
-            "_available": true
+            "title": "Los miserables",
+            "author": "Victor Hugo",
+            "isbn": "1234567907",
+            "available": true
         },
         {
-            "_title": "Drácula",
-            "_author": "Bram Stoker",
-            "_isbn": "1234567908",
-            "_available": true
+            "title": "Drácula",
+            "author": "Bram Stoker",
+            "isbn": "1234567908",
+            "available": true
         },
         {
-            "_title": "El Conde de Montecristo",
-            "_author": "Alexandre Dumas",
-            "_isbn": "1234567909",
-            "_available": true
+            "title": "El Conde de Montecristo",
+            "author": "Alexandre Dumas",
+            "isbn": "1234567909",
+            "available": true
         }
     ],
-    "date": "2026-08-03T13:36:30.828752"
+    "date": "2026-08-03T14:26:01.496408"
 }

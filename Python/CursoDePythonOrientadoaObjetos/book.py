@@ -65,3 +65,11 @@ class Book:
 
     def change_availability(self):
         self._available = not self._available
+
+    def to_dict(self):
+        return {
+            "title": self._title,
+            "author": self._author,
+            "isbn": self._isbn,
+            "available": self._available,
+        }

@@ -28,8 +28,9 @@ library = Library(
 json_exporter = JsonExporter()
 json_exporter.save(library)
 
+library_backup = json_exporter.load()
+
 print("Bienvenido a la biblioteca")
-print("Users: " + str(library.users))
 print(f"Available Books:")
 for book in library.available_books:
     print(f"  - {book.title} - {book.author}")
