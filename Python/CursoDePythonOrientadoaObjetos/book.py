@@ -31,6 +31,9 @@ class Book:
     def __str__(self):
         return f"Book: {self._title} - {self._author} - {self._isbn} - Available: {self._available}"
 
+    def __repr__(self):
+        return self.__str__()
+
     @property
     def title(self):
         return self._title

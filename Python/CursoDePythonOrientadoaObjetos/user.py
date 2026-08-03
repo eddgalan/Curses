@@ -40,15 +40,3 @@ class Teacher(User):
         self.books_borrowed.append(title)
         return f"El usuario {self.name} ha alquilado el libro {title}"
 
-
-student_1 = Student("Juan", 123, "Python")
-student_2 = Student("Maria", 456, "Java")
-teacher = Teacher("Pedro", 456)
-
-from main import Book
-book = Book("Python para iniciantes", "Pedro", "0123456789", True)
-
-users: list[RequesterProtocol] = [student_1, student_2, teacher, book]
-
-for user in users:
-    print(user.borrow_book("Python para iniciantes"))
