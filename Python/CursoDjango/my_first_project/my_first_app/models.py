@@ -24,6 +24,11 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+class Profile(models.Model):
+    author = models.OneToOneField(Author, on_delete=models.CASCADE)
+    website = models.URLField()
+    bio = models.TextField()
+
 class Book(models.Model):
     title = models.CharField(max_length=150)
     publication_date = models.DateField()
