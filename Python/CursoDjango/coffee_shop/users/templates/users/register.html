@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+             alt="Coffee Shop" class="mx-auto h-10 w-auto"/>
+        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Create your account</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form method="post" class="space-y-6" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="rounded-md bg-red-100 p-3 text-sm text-red-700">
+                {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="mb-2 block text-sm font-bold text-gray-400">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.help_text %}
+                <div class="mt-1 text-xs text-gray-400">{{ field.help_text|safe }}</div>
+                {% endif %}
+                {% for error in field.errors %}
+                <p class="mt-1 text-sm text-red-500">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button type="submit"
+                    class="w-full rounded-md border border-yellow-500 bg-yellow-500 px-5 py-3 text-sm
+                           font-medium tracking-widest text-white uppercase transition-colors
+                           hover:bg-white hover:text-yellow-500">
+                Register
+            </button>
+        </form>
+        <p class="mt-6 text-center text-sm text-gray-400">
+            Already have an account?
+            <a href="{% url 'login' %}" class="font-semibold text-yellow-500 hover:text-yellow-400">Sign in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
