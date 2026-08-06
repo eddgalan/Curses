@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-3xl font-bold mb-4">
+    Products List
+</h1>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {% for product in products %}
+    <a href="#" class="relative block rounded-se-3xl border border-gray-100">
+        <!--
+        <span
+          class="absolute -top-px -right-px rounded-se-3xl rounded-es-3xl bg-rose-600 px-6 py-4 font-medium tracking-widest text-white uppercase">
+            Save 10%
+        </span>
+        -->
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="h-80 w-full rounded-se-3xl object-cover"/>
+        <div class="p-4 text-center">
+            <strong class="text-xl font-medium text-gray-900">{{ product.name }}</strong>
+            <p class="mt-2 text-pretty text-gray-700">{{ product.description }}</p>
+            <p>$ {{ product.price }} USD</p>
+            <span class="mt-4 block rounded-md border border-yellow-500 bg-yellow-500 px-5 py-3 text-sm font-medium tracking-widest text-white uppercase transition-colors hover:bg-white hover:text-yellow-500">
+                Add to Cart
+            </span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock content %}
