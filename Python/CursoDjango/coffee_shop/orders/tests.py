@@ -107,3 +107,70 @@ class OrderDetailViewTests(TestCase):
         response = self.client.get(reverse("order_details", args=[self.other_order.pk]))
 
         self.assertEqual(response.status_code, 404)
+
+
+class AddProductToQuoteViewTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="customer", password="A-secure-password-2026"
+        )
+        self.product = Product.objects.create(
+            name="Latte",
+            description="Espresso with milk",
+            price=Decimal("15.50"),
+        )
+
+    def test_login_is_required(self):
+        response = self.client.post(
+            reverse("add_product"), {"product": self.product.pk}
+        )
+
+        self.assertRedirects(
+            response, f'{reverse("login")}?next={reverse("add_product")}'
+        )
+
+    def test_product_is_added_to_quote_and_redirects_to_detail(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse("add_product"),
+            {"product": self.product.pk, "price": "0.01", "quantity": "99"},
+        )
+
+        order = Order.objects.get(user=self.user, status=Order.Status.QUOTE)
+        item = order.items.get(product=self.product)
+        self.assertRedirects(response, reverse("order_details", args=[order.pk]))
+        self.assertEqual(item.quantity, 1)
+        self.assertEqual(item.price, self.product.price)
+        self.assertEqual(item.row_total, self.product.price)
+        self.assertEqual(order.total, self.product.price)
+
+    def test_adding_same_product_increments_quantity_and_totals(self):
+        self.client.force_login(self.user)
+        add_product_url = reverse("add_product")
+
+        self.client.post(add_product_url, {"product": self.product.pk})
+        order = Order.objects.get(user=self.user, status=Order.Status.QUOTE)
+        previous_updated_at = order.updated_at
+
+        self.client.post(add_product_url, {"product": self.product.pk})
+
+        order.refresh_from_db()
+        item = order.items.get(product=self.product)
+        self.assertEqual(order.items.count(), 1)
+        self.assertEqual(item.quantity, 2)
+        self.assertEqual(item.row_total, Decimal("31.00"))
+        self.assertEqual(order.total, Decimal("31.00"))
+        self.assertGreater(order.updated_at, previous_updated_at)
+
+    def test_unavailable_product_is_rejected(self):
+        self.client.force_login(self.user)
+        self.product.available = False
+        self.product.save(update_fields=("available",))
+
+        response = self.client.post(
+            reverse("add_product"), {"product": self.product.pk}
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(Order.objects.filter(user=self.user).exists())
