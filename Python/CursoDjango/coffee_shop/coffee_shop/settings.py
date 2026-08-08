@@ -10,10 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env(".env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -83,11 +86,11 @@ WSGI_APPLICATION = 'coffee_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'coffee_shop',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        'USER': 'coffee_shop',
-        'PASSWORD': '12345678a',
+        'NAME': env.str('DJANGO_DB_NAME'),
+        'HOST': env.str('DJANGO_DB_HOST'),
+        'PORT': env.str('DJANGO_DB_PORT'),
+        'USER': env.str('DJANGO_DB_USER'),
+        'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
     }
 }
 
