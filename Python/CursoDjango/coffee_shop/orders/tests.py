@@ -109,6 +109,74 @@ class OrderDetailViewTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
+class OrderCartViewTests(TestCase):
+    def setUp(self):
+        user_model = get_user_model()
+        self.user = user_model.objects.create_user(
+            username="customer", password="A-secure-password-2026"
+        )
+        self.other_user = user_model.objects.create_user(
+            username="another_customer", password="A-secure-password-2026"
+        )
+        self.quote = Order.objects.create(
+            user=self.user,
+            status=Order.Status.QUOTE,
+            total=Decimal("15.50"),
+        )
+        Order.objects.create(
+            user=self.user,
+            status=Order.Status.PENDING,
+            total=Decimal("30.00"),
+        )
+        Order.objects.create(
+            user=self.other_user,
+            status=Order.Status.QUOTE,
+            total=Decimal("99.00"),
+        )
+        product = Product.objects.create(
+            name="Latte",
+            description="Espresso with milk",
+            price=Decimal("15.50"),
+        )
+        OrderItem.objects.create(
+            order=self.quote,
+            product=product,
+            quantity=1,
+            price=Decimal("15.50"),
+            row_total=Decimal("15.50"),
+        )
+
+    def test_login_is_required(self):
+        cart_url = reverse("cart")
+
+        response = self.client.get(cart_url)
+
+        self.assertRedirects(response, f'{reverse("login")}?next={cart_url}')
+
+    def test_cart_displays_logged_in_users_quote(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse("cart"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "orders/order_detail.html")
+        self.assertEqual(response.context["order"], self.quote)
+        self.assertContains(response, "Latte")
+        self.assertContains(response, "$15.50")
+        self.assertNotContains(response, "$99.00")
+
+    def test_cart_returns_404_when_user_has_no_quote(self):
+        user_without_quote = get_user_model().objects.create_user(
+            username="customer_without_quote",
+            password="A-secure-password-2026",
+        )
+        self.client.force_login(user_without_quote)
+
+        response = self.client.get(reverse("cart"))
+
+        self.assertEqual(response.status_code, 404)
+
+
 class AddProductToQuoteViewTests(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(

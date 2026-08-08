@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.db.models import Sum
 from django.http import HttpResponseBadRequest
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
@@ -22,9 +22,28 @@ class OrderListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return (
             Order.objects.filter(user=self.request.user)
+            .exclude(status=Order.Status.QUOTE)
             .prefetch_related("items")
             .order_by("-created_at")
         )
+
+
+class OrderCartView(LoginRequiredMixin, DetailView):
+    model = Order
+    context_object_name = "order"
+    template_name = "orders/order_detail.html"
+    login_url = "login"
+
+    def get_object(self, queryset=None):
+        queryset = queryset or self.get_queryset()
+        return get_object_or_404(
+            queryset,
+            user=self.request.user,
+            status=Order.Status.QUOTE,
+        )
+
+    def get_queryset(self):
+        return Order.objects.prefetch_related("items__product")
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):

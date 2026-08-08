@@ -18,7 +18,8 @@
     </div>
     <el-popover-group class="hidden lg:flex lg:gap-x-12">
         <a href="{% url 'product_list' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">Products</a>
-        <a href="{% url 'orders_list' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">Orders</a>
+        <a href="{% url 'orders_list' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">My Orders</a>
+        <a href="{% url 'cart' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">Cart</a>
     </el-popover-group>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
         {% if user.is_authenticated %}
