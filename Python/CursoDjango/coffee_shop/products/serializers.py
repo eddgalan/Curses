@@ -15,4 +15,3 @@ class ProductSerializer(ModelSerializer):
             "created_at",
             "updated_at",
         ]
-
