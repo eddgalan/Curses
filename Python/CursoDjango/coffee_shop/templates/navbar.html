@@ -1,92 +1,155 @@
 <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
     <div class="flex lg:flex-1">
-        <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt=""
-                 class="h-8 w-auto"/>
+        <a href="{% url 'product_list' %}" class="-m-1.5 p-1.5">
+            <span class="sr-only">Coffee Shop</span>
+            <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                 alt="" class="h-8 w-auto">
         </a>
     </div>
+
     <div class="flex lg:hidden">
-        <button type="button" command="show-modal" commandfor="mobile-menu"
-                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+        <button id="mobile-menu-open" type="button" aria-controls="mobile-menu" aria-expanded="false"
+                class="-m-2.5 inline-flex cursor-pointer items-center justify-center rounded-md p-2.5
+                       text-gray-400 hover:bg-white/5 hover:text-white focus-visible:outline-2
+                       focus-visible:outline-offset-2 focus-visible:outline-yellow-500">
             <span class="sr-only">Open main menu</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                  aria-hidden="true" class="size-6">
-                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                      stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </button>
     </div>
-    <el-popover-group class="hidden lg:flex lg:gap-x-12">
-        <a href="{% url 'product_list' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">Products</a>
-        <a href="{% url 'orders_list' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">My Orders</a>
-        <a href="{% url 'cart' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">Cart</a>
-    </el-popover-group>
+
+    <div class="hidden lg:flex lg:gap-x-12">
+        <a href="{% url 'product_list' %}"
+           class="text-sm/6 font-semibold text-white hover:text-yellow-500">Products</a>
+        <a href="{% url 'orders_list' %}"
+           class="text-sm/6 font-semibold text-white hover:text-yellow-500">My Orders</a>
+        <a href="{% url 'cart' %}"
+           class="text-sm/6 font-semibold text-white hover:text-yellow-500">Cart</a>
+    </div>
+
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
         {% if user.is_authenticated %}
-        <a href="#" class="text-sm/6 font-semibold text-yellow-500">Hello, {{ user.username }}!</a>
-        <span class="mx-2 text-white"> | </span>
+        <span class="text-sm/6 font-semibold text-yellow-500">Hello, {{ user.username }}!</span>
+        <span class="mx-2 text-white" aria-hidden="true">|</span>
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
-            <button type="submit" class="cursor-pointer text-sm/6 font-semibold text-white hover:text-yellow-500">
+            <button type="submit"
+                    class="cursor-pointer text-sm/6 font-semibold text-white hover:text-yellow-500">
                 Sign out
             </button>
         </form>
         {% else %}
         <div class="flex items-center gap-4">
-            <a href="{% url 'register' %}" class="text-sm/6 font-semibold text-white hover:text-yellow-500">Register</a>
-            <a href="{% url 'login' %}" class="text-sm/6 font-semibold text-yellow-500 hover:text-white">Sign in <span aria-hidden="true">&rarr;</span></a>
+            <a href="{% url 'register' %}"
+               class="text-sm/6 font-semibold text-white hover:text-yellow-500">Register</a>
+            <a href="{% url 'login' %}"
+               class="text-sm/6 font-semibold text-yellow-500 hover:text-white">
+                Sign in <span aria-hidden="true">&rarr;</span>
+            </a>
         </div>
         {% endif %}
     </div>
 </nav>
 
-<!-- ToDo: Adaptar el mobile -->
-<el-dialog>
-    <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
-      <div tabindex="0" class="fixed inset-0 focus:outline-none">
-        <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
-          <div class="flex items-center justify-between">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
-              <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="" class="h-8 w-auto" />
-            </a>
-            <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-400">
-              <span class="sr-only">Close menu</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-          <div class="mt-6 flow-root">
-            <div class="-my-6 divide-y divide-white/10">
-              <div class="space-y-2 py-6">
-                <div class="-mx-3">
-                  <button type="button" command="--toggle" commandfor="products" class="flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
-                    Product
-                    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 flex-none in-aria-expanded:rotate-180">
-                      <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+<dialog id="mobile-menu"
+        aria-labelledby="mobile-menu-title"
+        class="m-0 h-full w-full max-w-none bg-transparent p-0 backdrop:bg-black/60 lg:hidden">
+    <div class="fixed inset-0">
+        <div id="mobile-menu-panel"
+             class="ml-auto flex min-h-full w-full max-w-sm flex-col overflow-y-auto bg-gray-900 p-6
+                    shadow-xl ring-1 ring-white/10">
+            <div class="flex items-center justify-between">
+                <a href="{% url 'product_list' %}" class="-m-1.5 p-1.5">
+                    <span id="mobile-menu-title" class="sr-only">Coffee Shop navigation</span>
+                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                         alt="" class="h-8 w-auto">
+                </a>
+                <button id="mobile-menu-close" type="button"
+                        class="-m-2.5 cursor-pointer rounded-md p-2.5 text-gray-400 hover:bg-white/5
+                               hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2
+                               focus-visible:outline-yellow-500">
+                    <span class="sr-only">Close menu</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                         aria-hidden="true" class="size-6">
+                        <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
-                  </button>
-                  <el-disclosure id="products" hidden class="mt-2 block space-y-2">
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Analytics</a>
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Engagement</a>
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Security</a>
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Integrations</a>
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Automations</a>
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Watch demo</a>
-                    <a href="#" class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5">Contact sales</a>
-                  </el-disclosure>
-                </div>
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Features</a>
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Marketplace</a>
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Company</a>
-              </div>
-              <div class="py-6">
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5">Log in</a>
-              </div>
+                </button>
             </div>
-          </div>
-        </el-dialog-panel>
-      </div>
-    </dialog>
-  </el-dialog>
+
+            <div class="mt-8 flex flex-1 flex-col">
+                <div class="space-y-2 border-b border-white/10 pb-6">
+                    <a href="{% url 'product_list' %}"
+                       class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white
+                              hover:bg-white/5 hover:text-yellow-500">Products</a>
+                    <a href="{% url 'orders_list' %}"
+                       class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white
+                              hover:bg-white/5 hover:text-yellow-500">My Orders</a>
+                    <a href="{% url 'cart' %}"
+                       class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white
+                              hover:bg-white/5 hover:text-yellow-500">Cart</a>
+                </div>
+
+                <div class="mt-6">
+                    {% if user.is_authenticated %}
+                    <p class="mb-4 text-sm font-semibold text-yellow-500">Hello, {{ user.username }}!</p>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="-mx-3 block w-full cursor-pointer rounded-lg px-3 py-2.5 text-left
+                                       text-base/7 font-semibold text-white hover:bg-white/5
+                                       hover:text-yellow-500">
+                            Sign out
+                        </button>
+                    </form>
+                    {% else %}
+                    <div class="space-y-2">
+                        <a href="{% url 'login' %}"
+                           class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold
+                                  text-yellow-500 hover:bg-white/5 hover:text-white">Sign in</a>
+                        <a href="{% url 'register' %}"
+                           class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold
+                                  text-white hover:bg-white/5 hover:text-yellow-500">Register</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    (() => {
+        const menu = document.getElementById("mobile-menu");
+        const openButton = document.getElementById("mobile-menu-open");
+        const closeButton = document.getElementById("mobile-menu-close");
+        const panel = document.getElementById("mobile-menu-panel");
+
+        if (!menu || !openButton || !closeButton || !panel) return;
+
+        const openMenu = () => {
+            menu.showModal();
+            openButton.setAttribute("aria-expanded", "true");
+            document.body.classList.add("overflow-hidden");
+        };
+
+        const closeMenu = () => {
+            if (menu.open) menu.close();
+        };
+
+        openButton.addEventListener("click", openMenu);
+        closeButton.addEventListener("click", closeMenu);
+
+        menu.addEventListener("click", (event) => {
+            if (!panel.contains(event.target)) closeMenu();
+        });
+
+        menu.addEventListener("close", () => {
+            openButton.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("overflow-hidden");
+            openButton.focus();
+        });
+    })();
+</script>
