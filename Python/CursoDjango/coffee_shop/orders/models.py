@@ -1,6 +1,8 @@
+from decimal import Decimal
+
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Sum
 
 from products.models import Product
 
@@ -31,7 +33,7 @@ class Order(models.Model):
         choices=OrderStatus.choices,
         default=OrderStatus.QUOTE,
     )
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -41,6 +43,12 @@ class Order(models.Model):
     @property
     def total_items(self):
         return sum(item.quantity for item in self.items.all())
+
+    def recalculate_total(self):
+        self.total = self.items.aggregate(total=Sum("row_total"))["total"] or Decimal(
+            "0.00"
+        )
+        self.save(update_fields=("total", "updated_at"))
 
 
 class OrderItem(models.Model):
@@ -62,3 +70,7 @@ class OrderItem(models.Model):
         return (
             f"Order: {self.order} - Product: {self.product} - Quantity: {self.quantity}"
         )
+
+    def recalculate_row_total(self):
+        self.row_total = self.price * self.quantity
+        self.save(update_fields=("quantity", "price", "row_total"))

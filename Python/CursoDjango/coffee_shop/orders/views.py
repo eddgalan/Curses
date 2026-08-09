@@ -2,10 +2,8 @@ from decimal import Decimal
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.db.models import Sum
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
-from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
 
@@ -31,19 +29,19 @@ class OrderListView(LoginRequiredMixin, ListView):
 class OrderCartView(LoginRequiredMixin, DetailView):
     model = Order
     context_object_name = "order"
-    template_name = "orders/order_detail.html"
+    template_name = "orders/quote.html"
     login_url = "login"
 
     def get_object(self, queryset=None):
-        queryset = queryset or self.get_queryset()
-        return get_object_or_404(
-            queryset,
+        order, created = Order.objects.get_or_create(
             user=self.request.user,
             status=Order.Status.QUOTE,
         )
 
-    def get_queryset(self):
-        return Order.objects.prefetch_related("items__product")
+        return (Order.objects
+            .prefetch_related("items__product")
+            .get(pk=order.pk)
+        )
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
@@ -87,13 +85,54 @@ class AddProductToQuoteView(LoginRequiredMixin, View):
             if not created:
                 item.quantity += 1
                 item.price = product.price
-                item.row_total = product.price * item.quantity
-                item.save(update_fields=("quantity", "price", "row_total"))
+                item.recalculate_row_total()
 
-            order.total = order.items.aggregate(total=Sum("row_total"))[
-                "total"
-            ] or Decimal("0.00")
-            order.updated_at = timezone.now()
-            order.save(update_fields=("total", "updated_at"))
+            order.recalculate_total()
 
-        return redirect("order_details", pk=order.pk)
+        return redirect("cart")
+
+
+class UpdateQuoteItemQuantityView(LoginRequiredMixin, View):
+    login_url = "login"
+
+    def post(self, request, pk):
+        action = request.POST.get("action")
+        if action not in {"increment", "decrement"}:
+            return HttpResponseBadRequest("Invalid quantity action.")
+
+        with transaction.atomic():
+            item = get_object_or_404(
+                OrderItem.objects.select_for_update().select_related("order"),
+                pk=pk,
+                order__user=request.user,
+                order__status=Order.Status.QUOTE,
+            )
+
+            if action == "increment":
+                item.quantity += 1
+            elif item.quantity > 1:
+                item.quantity -= 1
+
+            item.recalculate_row_total()
+
+            item.order.recalculate_total()
+
+        return redirect("cart")
+
+
+class DeleteQuoteItemView(LoginRequiredMixin, View):
+    login_url = "login"
+
+    def post(self, request, pk):
+        with transaction.atomic():
+            item = get_object_or_404(
+                OrderItem.objects.select_for_update().select_related("order"),
+                pk=pk,
+                order__user=request.user,
+                order__status=Order.Status.QUOTE,
+            )
+            order = item.order
+            item.delete()
+            order.recalculate_total()
+
+        return redirect("cart")

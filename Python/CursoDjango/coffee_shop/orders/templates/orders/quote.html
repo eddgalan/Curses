@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}My quote{% endblock %}
+
+{% block content %}
+{% include "navbar.html" %}
+
+<main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+    <a href="{% url 'product_list' %}"
+       class="group inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-yellow-400">
+        <span class="transition-transform group-hover:-translate-x-1" aria-hidden="true">&larr;</span>
+        Continue shopping
+    </a>
+
+    <div class="mt-7">
+        <p class="text-sm font-semibold tracking-[0.2em] text-yellow-500 uppercase">Your selection</p>
+        <div class="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">My quote</h1>
+                <p class="mt-2 text-sm text-gray-400">Review your products and adjust the quantities before continuing.</p>
+            </div>
+            {% if order.items.all %}
+            <span class="w-fit rounded-full bg-gray-700/60 px-3 py-1.5 text-xs font-medium text-gray-300">
+                {{ order.total_items }} item{{ order.total_items|pluralize }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if order.items.all %}
+    <div class="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <section aria-labelledby="quote-items-heading"
+                 class="overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-xl shadow-black/10">
+            <h2 id="quote-items-heading" class="sr-only">Products in your quote</h2>
+
+            <div class="hidden grid-cols-[minmax(0,1fr)_8rem_9rem_3rem] gap-5 border-b border-gray-700 bg-gray-800/50 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase md:grid">
+                <span>Product</span>
+                <span class="text-right">Price</span>
+                <span class="text-center">Quantity</span>
+                <span class="sr-only">Actions</span>
+            </div>
+
+            <div class="divide-y divide-gray-800">
+                {% for item in order.items.all %}
+                <article class="group p-5 transition-colors hover:bg-gray-800/30 sm:p-6">
+                    <div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_8rem_9rem_3rem] md:items-center">
+                        <div class="flex min-w-0 items-center gap-4">
+                            {% if item.product.photo %}
+                            <img src="{{ item.product.photo.url }}" alt="{{ item.product.name }}"
+                                 class="size-20 shrink-0 rounded-xl bg-gray-800 object-cover ring-1 ring-white/5 sm:size-24 md:size-16"/>
+                            {% else %}
+                            <div class="flex size-20 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-3xl ring-1 ring-white/5 sm:size-24 md:size-16"
+                                 aria-hidden="true">☕</div>
+                            {% endif %}
+                            <div class="min-w-0">
+                                <h3 class="truncate font-semibold text-white">{{ item.product.name }}</h3>
+                                <p class="mt-1 line-clamp-2 text-sm leading-5 text-gray-400">{{ item.product.description }}</p>
+                                <p class="mt-2 text-sm font-semibold text-yellow-500 md:hidden">${{ item.price }} each</p>
+                            </div>
+                        </div>
+
+                        <p class="hidden text-right text-sm font-semibold whitespace-nowrap text-gray-200 md:block">
+                            ${{ item.price }}
+                        </p>
+
+                        <div class="flex items-center justify-between gap-4 md:justify-center">
+                            <span class="text-xs font-semibold tracking-wide text-gray-400 uppercase md:hidden">Quantity</span>
+                            <div class="inline-flex h-10 items-center overflow-hidden rounded-lg border border-gray-600 bg-gray-800 shadow-sm">
+                                <form method="post" action="{% url 'update_quote_item_quantity' item.pk %}" class="h-full">
+                                    {% csrf_token %}
+                                    <button type="submit" name="action" value="decrement"
+                                            aria-label="Decrease quantity for {{ item.product.name }}"
+                                            {% if item.quantity == 1 %}disabled{% endif %}
+                                            class="flex h-full w-9 items-center justify-center text-lg text-gray-300 transition hover:bg-gray-700 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-600 disabled:hover:bg-transparent">
+                                        <span aria-hidden="true">&minus;</span>
+                                    </button>
+                                </form>
+                                <output aria-label="Quantity for {{ item.product.name }}"
+                                        class="flex h-full w-11 items-center justify-center border-x border-gray-600 bg-gray-900 text-center text-sm font-semibold text-white">
+                                    {{ item.quantity }}
+                                </output>
+                                <form method="post" action="{% url 'update_quote_item_quantity' item.pk %}" class="h-full">
+                                    {% csrf_token %}
+                                    <button type="submit" name="action" value="increment"
+                                            aria-label="Increase quantity for {{ item.product.name }}"
+                                            class="flex h-full w-9 items-center justify-center text-lg text-gray-300 transition hover:bg-gray-700 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500">
+                                        <span aria-hidden="true">+</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-gray-800 pt-4 md:block md:border-0 md:pt-0 md:text-right">
+                            <div class="md:hidden">
+                                <span class="block text-xs text-gray-500">Subtotal</span>
+                                <span class="font-bold text-white">${{ item.row_total }}</span>
+                            </div>
+                            <form method="post" action="{% url 'delete_quote_item' item.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" aria-label="Remove {{ item.product.name }} from quote"
+                                        class="inline-flex size-10 items-center justify-center rounded-lg text-gray-500 transition hover:bg-red-500/10 hover:text-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 md:size-9">
+                                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9 14.4 18m-4.8 0L9.26 9m9.97-3.21c.34.05.68.1 1.02.16M19.23 5.8 18.16 19.67A2.25 2.25 0 0 1 15.91 21H8.09a2.25 2.25 0 0 1-2.25-1.33L4.77 5.79m14.46 0a48.1 48.1 0 0 0-3.48-.4m-10.98.4c-.34.05-.68.1-1.02.16m1.02-.16a48.1 48.1 0 0 1 3.48-.4m7.5 0v-.92c0-1.18-.91-2.17-2.09-2.2a51.96 51.96 0 0 0-3.32 0 2.18 2.18 0 0 0-2.09 2.2v.92m7.5 0a48.67 48.67 0 0 0-7.5 0"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 hidden items-center justify-between border-t border-gray-800 pt-4 md:flex">
+                        <span class="text-xs text-gray-500">Product subtotal</span>
+                        <span class="font-bold text-white">${{ item.row_total }}</span>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <aside class="rounded-2xl border border-gray-700 bg-gray-900 p-6 shadow-xl shadow-black/10 lg:sticky lg:top-6">
+            <h2 class="text-lg font-bold text-white">Quote summary</h2>
+            <div class="mt-5 space-y-4 border-b border-gray-700 pb-5 text-sm">
+                <div class="flex justify-between gap-4 text-gray-400">
+                    <span>Products</span>
+                    <span class="text-gray-200">{{ order.total_items }}</span>
+                </div>
+            </div>
+            <div class="flex items-end justify-between gap-4 py-5">
+                <div>
+                    <p class="font-semibold text-white">Estimated total</p>
+                </div>
+                <p class="text-2xl font-bold tracking-tight text-yellow-500">${{ order.total }}</p>
+            </div>
+            <button type="button"
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-yellow-500 px-5 py-3 font-bold text-gray-950 shadow-lg shadow-yellow-500/10 transition hover:bg-yellow-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">
+                Create order
+                <span aria-hidden="true">&rarr;</span>
+            </button>
+            <p class="mt-4 text-center text-xs leading-5 text-gray-500">You can still modify your quote before confirming the order.</p>
+        </aside>
+    </div>
+    {% else %}
+    <section class="mt-8 rounded-2xl border border-dashed border-gray-600 bg-gray-900/60 px-6 py-16 text-center">
+        <div class="mx-auto flex size-16 items-center justify-center rounded-full bg-gray-800 text-3xl" aria-hidden="true">☕</div>
+        <h2 class="mt-5 text-xl font-bold text-white">Your quote is empty</h2>
+        <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-gray-400">Explore our products and add your favorites to start a new quote.</p>
+        <a href="{% url 'product_list' %}"
+           class="mt-6 inline-flex items-center justify-center rounded-xl bg-yellow-500 px-5 py-3 font-bold text-gray-950 transition hover:bg-yellow-400">
+            Browse products
+        </a>
+    </section>
+    {% endif %}
+</main>
+{% endblock %}
