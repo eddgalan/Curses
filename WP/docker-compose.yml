@@ -10,8 +10,24 @@ services:
             - "8086:80"
         volumes:
             - ./wp:/var/www/html
+            - ./containers/wp-apache/logs:/var/log/apache2
         networks:
             - wordpress-network
+    mariadb:
+        image: mariadb:11.4
+        container_name: wp-mariadb
+        volumes:
+            - wp-mariadb-data:/var/lib/mysql
+            - ./containers/mariadb/logs:/var/log/mysql/
+        ports:
+            - "3308:3306"
+        environment:
+            MARIADB_ROOT_PASSWORD: 12345678a
+            MARIADB_DATABASE: wordpress
+        networks:
+            - wordpress-network
+volumes:
+    wp-mariadb-data:
 networks:
     wordpress-network:
         external: true
