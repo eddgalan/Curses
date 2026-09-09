@@ -1,0 +1,17 @@
+services:
+    wordpress:
+        image: wordpress-app
+        build:
+            context: .
+            args:
+                INSTALL_XDEBUG: "true"
+        container_name: wordpress
+        ports:
+            - "8086:80"
+        volumes:
+            - ./wp:/var/www/html
+        networks:
+            - wordpress-network
+networks:
+    wordpress-network:
+        external: true
