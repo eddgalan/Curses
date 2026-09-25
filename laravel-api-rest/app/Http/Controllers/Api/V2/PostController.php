@@ -13,9 +13,9 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): PostCollection
     {
-        //
+        return new PostCollection(Post::latest()->paginate());
     }
 
     /**
